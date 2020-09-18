@@ -1,26 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Styles from './App.module.css';
+import Person from "./Component/Person";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  state = {
+    persons: [
+      { id: 1, name: "Ashis", age: 23 },
+      { id: 2, name: "Ashwin", age: 25 },
+      { id: 3, name: "Mahesh", age: 26 },
+    ],
+  };
+  nameChangeHandler=(event,myid)=>{
+    //Search particular object
+    const personIndex=this.state.persons.findIndex((per)=>{
+      return per.id===myid;
+    })
+    //get perticular object
+    const newperson={
+      ...this.state.persons[personIndex]
+    }
+    //update the particular value
+    newperson.name=event.target.value
+    //get the root array in new variable
+    const newpersons=[...this.state.persons]
+    //update the particular object in the array
+    newpersons[personIndex]=newperson
+    //update the state with new array variable
+    this.setState({persons:newpersons})
+    
+  }
+  deletePerson = (personindex) => {
+    // const persons=this.state.persons.slice();
+    const persons = [...this.state.persons];
+    persons.splice(personindex, 1);
+    this.setState({ persons: persons });
+  };
+  render() {
+    let allPerson = (
+      <div>
+        {this.state.persons.map((p, i) => {
+          return (
+            <Person
+              key={p.id}
+              name={p.name}
+              age={p.age}
+              changed={(event)=>this.nameChangeHandler(event,p.id)}
+              delete={() => this.deletePerson(i)}
+            />
+          );
+        })}
+      </div>
+    );
+    return (
+      <div className={Styles.App}>
+        <h1>Welcome to UI Team</h1>
+        <div>{allPerson}</div>
+      </div>
+    );
+  }
 }
-
-export default App;

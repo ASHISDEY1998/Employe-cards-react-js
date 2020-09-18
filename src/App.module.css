@@ -1,0 +1,21 @@
+.App {
+  text-align: center;
+  
+}
+.Person_card{
+  border: 2px solid gray;
+  background: lightgray;
+  border-radius: 2%;
+  width: 60%;
+ margin: auto;
+ padding-bottom: 20px ;
+ margin-top: 10px;
+}
+.btn_style{
+  background-color: #00a2ffc7;
+  margin-top: 5px;
+color: White;
+height: 30px;
+width: 150px;
+border-radius: 5%;
+}
